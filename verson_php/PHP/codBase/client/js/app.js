@@ -63,7 +63,7 @@ class EventsManager {
             if (jsEvent.pageX >= x1 && jsEvent.pageX<= x2 &&
                 jsEvent.pageY >= y1 && jsEvent.pageY <= y2) {
                   this.eliminarEvento(event, jsEvent)
-                  $('.calendario').fullCalendar('removeEvents', event.id);
+                  $('.calendario').fullCalendar('removeEvents', event);
             }
 
           }
@@ -127,7 +127,7 @@ class EventsManager {
     eliminarEvento(event, jsEvent){
 
       var form_data = new FormData()
-      form_data.append('id', event.id)
+      form_data.append('id', event.event_id)
       $.ajax({
         url: '../server/delete_event.php',
         dataType: "json",
@@ -140,7 +140,7 @@ class EventsManager {
           if (data.msg=="OK") {
             alert('Se ha eliminado el evento exitosamente')
           }else {
-            alert(data.msg)
+            alert(data.msg + event.event_id)
           }
         },
         error: function(){
@@ -152,7 +152,7 @@ class EventsManager {
     }
 
     actualizarEvento(evento) {
-        let id = evento.id,
+        let id = evento.event_id,
             start = moment(evento.start).format('YYYY-MM-DD HH:mm:ss'),
             end = moment(evento.end).format('YYYY-MM-DD HH:mm:ss'),
             form_data = new FormData(),

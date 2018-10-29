@@ -28,6 +28,9 @@
               <div class="small-7 columns btn-container">
                 <button type="submit" class="button">Enviar</button>
               </div>
+              <div class="small-7 columns btn-container">
+                <a href="registrarse.html">Registrarse</a>
+              </div>
             </div>
           </form>
         </div>
@@ -38,5 +41,40 @@
     <script src="js/vendor/what-input.js"></script>
     <script src="js/vendor/foundation.min.js"></script>
     <script src="js/index.js"></script>
+    <script>
+    $("#user").focus(function () {
+      $("#user").css('border-color','gray');
+      $(".error").css('display','none');
+
+    });
+
+      $("#user").blur(function () {
+        let user = $("#user").val();
+        let data_form = new FormData();
+        data_form.append('user', user);
+        $.ajax({
+          url:'../server/check_user.php',
+          dataType: "text",
+          cache: false,
+          processData: false,
+          contentType: false,
+          data: data_form,
+          type: 'POST',
+          success: function(response){
+            if (response == "OK") {
+              $("#user").css('border-color','green');
+              $("#password").removeAttr('disabled');
+            }else {
+              $("#user").css('border-color','red');
+              $("#password").attr('disabled','true');
+              $("form").append('<div class="small-7 columns error"><p>usuario inexistente</p></div>');
+            }
+          },
+          error: function(){
+            alert("error en la comunicación con el servidor");
+          }
+        });
+      });
+    </script>
   </body>
 </html>
