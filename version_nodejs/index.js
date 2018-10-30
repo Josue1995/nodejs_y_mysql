@@ -7,6 +7,7 @@ const http = require('http'),
        morgan = require('morgan')
 
 
+
 //creando servidor
 const PORT = 3000,
        app = express(),
@@ -16,9 +17,22 @@ const PORT = 3000,
 mongoose.connect('mongodb://localhost/calendar')
   .then(
     db => console.log("coneccion exitosa")
+
   ).catch(
     err => console.log("error al establecer coneccion")
   )
+
+var conn = mongoose.connection;
+var user = {
+  name : "Josue Torres",
+  email : "josue@gmail.com",
+  birthday : "1995-06-09",
+  password : "123456"
+}
+conn.collection('usuarios').insert(user);
+console.log("user: ");
+console.log(user);
+
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))

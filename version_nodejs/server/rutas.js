@@ -17,14 +17,13 @@ Router.get('/signup', (req, res) => {
 
 
 Router.post('/',(req,res)=> {
-  hash = pass.hash(req.body.pass)
     User.find({email:req.body.user}).exec(function (err, docs) {
       if (err) {
         res.status(500);
         res.json(err);
         console.log(err);
       }else {
-        userHash = pass.validate(docs[0]['password'],req.body.pass)
+        userHash = docs[0]['password']===req.body.pass
         console.log(userHash);
         if (userHash) {
           cookie = req.body.user
@@ -110,7 +109,7 @@ Router.get('/calendar', (req,res) => {
 })
 
 Router.get('/all', (req,res) => {
-  Event.find({email:cookie}).exec(function (err,docs) {
+  Event.find().exec(function (err,docs) {
     if (err) {
       res.status(500)
       res.json(err)
