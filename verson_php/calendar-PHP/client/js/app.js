@@ -21,7 +21,7 @@ class EventsManager {
               this.poblarCalendario(data.eventos)
             }else {
               alert(data.msg)
-              window.location.href = 'index.html';
+              
             }
           },
           error: function(){
