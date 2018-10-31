@@ -21,7 +21,7 @@ class EventsManager {
               this.poblarCalendario(data.eventos)
             }else {
               alert(data.msg)
-              
+
             }
           },
           error: function(){
@@ -100,14 +100,14 @@ class EventsManager {
                 title: $('#titulo').val(),
                 start: $('#start_date').val(),
                 allDay: true
-              })
+              }, this.obtenerDataInicial())
             }else {
               $('.calendario').fullCalendar('renderEvent', {
                 title: $('#titulo').val(),
                 start: $('#start_date').val()+" "+$('#start_hour').val(),
                 allDay: false,
                 end: $('#end_date').val()+" "+$('#end_hour').val()
-              })
+              }, this.obtenerDataInicial())
             }
 
 
