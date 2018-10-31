@@ -15,7 +15,7 @@
         $data['eventos'] = $r;
         echo json_encode($data);
       }else {
-        $data['msg'] = "error";
+        $data['msg'] = "Aún no tiene eventos";
         echo json_encode($data);
       }
     }else {
