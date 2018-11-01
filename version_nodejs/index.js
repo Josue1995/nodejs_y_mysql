@@ -15,7 +15,7 @@ var bd_dev = 'mongodb://localhost/calendar'
 mongoose.connect(bd_dev,{
 useNewUrlParser: true
 }).then(()=>{
-console.log(`Conectado a la base de datos en el puerto: ${PORT}`);
+console.log("Conectado a la base de datos en el puerto");
 }).catch((err)=>{
 console.log(`Error al conectarse a la base de datos ${err}`);
 });
@@ -46,4 +46,5 @@ server.listen(PORT, function () {
 app.set('views', path.join(__dirname,'client'))
 app.set('view engine', 'ejs')
 app.use(express.static(path.join(__dirname,'client')))
-app.use('/events', routing)
+app.use('/events', routing.Router)
+app.use('/',routing.Login)

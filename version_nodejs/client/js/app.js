@@ -16,13 +16,13 @@ class EventManager {
     }
 
     eliminarEvento(evento) {
-        let eventId = evento._id
+        let eventId = evento.event_id
         $.post('/events/delete/'+eventId, {id: eventId}, (response) => {
             alert(response)
         })
     }
     actualizarEvento(evento){
-      let eventId = evento._id
+      let eventId = evento.event_id
       $.post('/events/update/'+eventId, {id:eventId}, (response) => {
         alert(response)
       })
@@ -51,6 +51,7 @@ class EventManager {
 
             if (title != "" && start != "") {
                 let ev = {
+                    event_id: Math.floor(Math.random()*50 + 15*4),
                     title: title,
                     start: start,
                     end: end

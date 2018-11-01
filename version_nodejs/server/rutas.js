@@ -1,5 +1,6 @@
 const express = require('express');
 const Router = express.Router();
+const Login = express.Router();
 const User = require('../models/usuario.js')
 const pass = require('../models/password.js')
 const Event = require('../models/eventos.js')
@@ -7,7 +8,7 @@ const Event = require('../models/eventos.js')
 //para el usuario logeado
 var cookie = null;
 
-Router.get('/', function (req, res) {
+Login.get('/', function (req, res) {
  res.render('index')
 })
 
@@ -61,6 +62,7 @@ Router.post('/newEvent', (req,res) => {
       console.log(err);
     }else {
       var event = new Event({
+        event_id: req.body.event_id,
         title: req.body.title,
         start: req.body.start,
         end: req.body.end
@@ -77,13 +79,13 @@ Router.post('/newEvent', (req,res) => {
 })
 
 Router.post('/update/:id', (req,res) => {
-  Event.find({_id:req.body.id}).exec(function (err,docs) {
+  Event.find({event_id:req.body.id}).exec(function (err,docs) {
     if (err) {
       res.status(500)
       res.json(err)
     }else {
       docs.update({
-        id:req.body.id
+        event_id:req.body.event_id
       },
       {
 
@@ -94,7 +96,7 @@ Router.post('/update/:id', (req,res) => {
 })
 
 Router.post('/delete/:id', (req,res) => {
-  Event.remove({_id:req.body.id}).exec( (err,docs) => {
+  Event.deleteOne({event_id:req.body.id}).exec( (err,docs) => {
     if (err) {
       res.status(500)
       res.json(err)
@@ -124,4 +126,7 @@ Router.get('/logout', (req,res) => {
   res.redirect('/events/')
 })
 
-module.exports = Router
+module.exports = {
+  'Router':Router,
+  'Login':Login
+}
