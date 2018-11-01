@@ -100,7 +100,8 @@ class EventsManager {
                 title: $('#titulo').val(),
                 start: $('#start_date').val(),
                 allDay: true
-              }, this.obtenerDataInicial())
+              }
+              this.obtenerDataInicial())
             }else {
               $('.calendario').fullCalendar('renderEvent', {
                 title: $('#titulo').val(),
